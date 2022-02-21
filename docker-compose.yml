@@ -1,0 +1,18 @@
+rhasspy:
+        image: "synesthesiam/rhasspy-server:latest"
+        restart: unless-stopped
+        volumes:
+                - "$HOME/.config/rhasspy/profiles:/profiles"
+        ports:
+                - "12101:12101"
+        devices: 
+                - "/dev/snd:/dev/snd"
+        command: --user-profiles /profiles --profile en
+
+home-assistant:
+        image: "ghcr.io/home-assistant/home-assistant:stable"
+        restart: unless-stopped
+        network: host
+        privileged: true
+
+docker run   --privileged   --restart=unless-stopped   --network=host   ghcr.io/home-assistant/home-assistant:stable
